@@ -20,17 +20,22 @@
 *.data
 *.json
 *.cfg
+*.sh
 !cfg/yolov3*.cfg
 
 storage.googleapis.com
 runs/*
-data/*
 !data/hyps/*
 !data/images/zidane.jpg
 !data/images/bus.jpg
 !data/*.sh
 
 results*.csv
+
+# myself
+
+res
+__pycache__
 
 # Datasets -------------------------------------------------------------------------------------------------------------
 coco/
@@ -44,7 +49,7 @@ VOC/
 
 # Neural Network weights -----------------------------------------------------------------------------------------------
 *.weights
-*.pt
+
 *.onnx
 *.mlmodel
 *.torchscript
@@ -242,3 +247,4 @@ com_crashlytics_export_strings.xml
 crashlytics.properties
 crashlytics-build.properties
 fabric.properties
+data/scripts/download_models.py

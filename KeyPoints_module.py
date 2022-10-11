@@ -1,10 +1,12 @@
 from utils.torch_utils import select_device
 from utils.general import check_img_size
 from utils.datasets import LoadWebcam
+from utils.val import run_nms, post_process_batch
+
 from models.experimental import attempt_load
+
 import torch
 import yaml
-from val import run_nms, post_process_batch
 
 class Process_keyPoint:
     def __init__(self) -> None:

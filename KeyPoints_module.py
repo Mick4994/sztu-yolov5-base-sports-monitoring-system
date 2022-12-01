@@ -14,8 +14,10 @@ class Process_keyPoint:
         self.bboxes = []
         self.device = 0
         self.imgsz = 512
-        self.camera_index = 0
+        self.camera_index = 'C:/FFOutput/5.mp4'
+        self.frame = []
         self.weights = 'kapao_s_coco.pt'
+        self.state = False
 
     def main(self):
         
@@ -47,6 +49,7 @@ class Process_keyPoint:
         model(torch.zeros(1, 3, imgsz, imgsz).to(device).type_as(next(model.parameters())))  # run once
 
         print('finished start')
+        self.state = True
 
         for i, (path, img, im0, _) in enumerate(dataset):
             img = torch.from_numpy(img).to(device)
@@ -55,16 +58,17 @@ class Process_keyPoint:
             if len(img.shape) == 3:
                 img = img[None]  # expand for batch dim
 
-            out = model(img, augment=True, kp_flip=data['kp_flip'], scales=[1], flips=[None])[0]
+            out = model(img, augment=True, kp_flip=data['kp_flip'], scales=data['scales'], flips=data['flips'])[0]
             person_dets, kp_dets = run_nms(data, out)
             bboxes, poses, _, _, _ = post_process_batch(data, img, [], [[im0.shape[:2]]], person_dets, kp_dets)
 
+            # print(poses)
+            self.frame = im0.copy()
             self.bboxes = bboxes
             self.poses = poses
 
 if __name__ == "__main__":
     import threading
-    import cv2
     import time
     keypoint_process = Process_keyPoint()
     main_thread = threading.Thread(target=keypoint_process.main,daemon=True)

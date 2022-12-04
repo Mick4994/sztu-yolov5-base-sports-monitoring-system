@@ -43,3 +43,16 @@ def ReturnCount(count, y_list, is_count, hang_line):
                 if s == 2:
                     is_count = True
     return count,is_count
+
+def NewCounter(count, y, is_count, up_bound, down_bound):
+    if count == 0:
+        if y > up_bound and y > down_bound:
+            is_count = True
+    if is_count:
+        if y < up_bound and y < down_bound:
+            count += 1
+            is_count = False
+    if y > up_bound and y > down_bound:
+        is_count = True
+    return count, is_count
+    

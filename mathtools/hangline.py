@@ -8,16 +8,11 @@ def ReturnHangLine(cv_frame,box,points):
     
     if points[R_HAND][Y] != 0 and points[L_HAND][Y] != 0:
         head_y = points[NOSE][Y]
-        # print(head_y)
-        # print(points[R_HAND][Y])
-        # print(points[L_HAND][Y])
         if head_y != 0 and points[R_HAND][Y] < head_y and points[L_HAND][Y] < head_y: 
-            # print('1')
             hand_y = int((points[R_HAND][Y] + points[L_HAND][Y]) / 2)
             hand_l = box[0]
             hand_r = box[2]
             cv_frame = cv_frame[hand_y-20:hand_y,hand_l:hand_r]
-            # cv2.imshow('cv_frame',cv_frame)
             cv_frame = cv_frame.copy()
             if len(cv_frame[0]) > 0:
                 gray_frame = cv2.cvtColor(cv_frame,cv2.COLOR_BGR2GRAY)

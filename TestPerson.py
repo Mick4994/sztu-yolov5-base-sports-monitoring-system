@@ -1,6 +1,7 @@
 import numpy as np
 from mathtools.hangline import ReturnHangLine
 from mathtools.counter import ReturnCount
+from mathtools.counter import NewCounter
 
 # Body Key Points Value
 NOSE, R_HAND, L_HAND = 0, 9, 10
@@ -11,18 +12,22 @@ HARD, EASY = 5, 2
 
 # 被测者对象
 class Person:
-    def __init__(self):
+    def __init__(self, inarg, up_bound, down_bound):
         self.head_list:list[int] = [0]                              # 头部y位置，                     类型： 一维列表
-        self.box:list[int,int,int,int] = []            # 被测者所在的位置框，             类型：一维四位列表【左上角x，y,右下角x，y】
+        self.box:list[int,int,int,int] = []                         # 被测者所在的位置框，             类型：一维四位列表【左上角x，y,右下角x，y】
         
         self.linelist:list[int] = [0]                               # 比较线的y位置，                 类型：一维列表
 
         self.status:int = 1                                         # 被测者状态，0为未就绪，1为就绪   类型：整数（布尔）
-        self.name:str = '1'                                         # 被测者姓名                     类型：字符串
+        self.name:str = 'test'                                      # 被测者姓名                     类型：字符串
         self.count:int = 0                                          # 被测者过线计数                 类型：整数
 
         self.frame:np.uint8 = []                                    # 被测者存在的画面               类型：三维numpy.uint8数组 Eg:720P RGB:（1280, 720, 3） 
         self.is_count:bool = False                                  # 是否符合计数条件               类型：布尔型
+
+        self.mode = inarg.mode
+        self.up_bound = up_bound
+        self.down_bound = down_bound
 
     # -----------------获取当前被测者状态（对比线是否位于正常状态）的算法-----------------
     def getstatus(self,points):
@@ -63,8 +68,12 @@ class Person:
         self.box = box
         if len(points) != 0:
             head = points[NOSE][Y]
-            self.head_list.append(head)
+            self.head_list.append(int(head))
+            # print(head)
 
-            self.getline(frame,points)
-            self.getstatus(points)
-            self.getcount()
+            if self.mode == "引体向上":
+                self.getline(frame,points)
+                self.getstatus(points)
+                self.getcount()
+            elif self.mode == "仰卧起坐":
+                self.count, self.is_count = NewCounter(self.count, self.head_list[-1], self.is_count, self.up_bound, self. down_bound)

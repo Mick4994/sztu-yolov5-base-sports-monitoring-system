@@ -9,12 +9,12 @@ import torch
 import yaml
 
 class Process_keyPoint:
-    def __init__(self) -> None:
+    def __init__(self, args) -> None:
         self.poses = []
         self.bboxes = []
         self.device = 0
         self.imgsz = 512
-        self.camera_index = 'C:/FFOutput/5.mp4'
+        self.camera_index = args.source
         self.frame = []
         self.weights = 'kapao_s_coco.pt'
         self.state = False

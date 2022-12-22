@@ -87,11 +87,11 @@ class Process:
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument("-s","--source",default=0)
+    parser.add_argument("-s","--source",default='C:/FFOutput/5.mp4')
     # source_list
-    "C:/FFOutput/5.mp4"
+    "机械盘:/FFOutput/5.mp4"
     "rtmp://120.78.203.51:1034/live/jetson"
-    "D:/FFOutput/now.mp4"
+    "机械盘:/FFOutput/now.mp4"
     "6 #:for HIK"
     "仰卧起坐.mp4"
     parser.add_argument("-r","--save", default=False)

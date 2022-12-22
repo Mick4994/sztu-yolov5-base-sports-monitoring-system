@@ -1,9 +1,9 @@
-from utils.torch_utils import select_device
-from utils.general import check_img_size
-from utils.datasets import LoadWebcam
-from utils.val import run_nms, post_process_batch
+from kaopao_package.utils.torch_utils import select_device
+from kaopao_package.utils.general import check_img_size
+from kaopao_package.utils.datasets import LoadWebcam
+from kaopao_package.utils.val import run_nms, post_process_batch
 
-from models.experimental import attempt_load
+from kaopao_package.models.experimental import attempt_load
 
 import torch
 import yaml
@@ -16,12 +16,12 @@ class Process_keyPoint:
         self.imgsz = 512
         self.camera_index = args.source
         self.frame = []
-        self.weights = 'kapao_s_coco.pt'
+        self.weights = 'kaopao_package/kapao_s_coco.pt'
         self.state = False
 
     def main(self):
         
-        with open('data/coco-kp.yaml') as f:
+        with open('kaopao_package/data/coco-kp.yaml') as f:
             data = yaml.safe_load(f) 
 
         data['imgsz'] = self.imgsz

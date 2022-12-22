@@ -9,10 +9,10 @@ from threading import Thread
 import torch
 from torch.utils.tensorboard import SummaryWriter
 
-from utils.general import colorstr, emojis
-from utils.loggers.wandb.wandb_utils import WandbLogger
-from utils.plots import plot_images, plot_results
-from utils.torch_utils import de_parallel
+from kaopao_package.utils.general import colorstr, emojis
+from kaopao_package.utils.loggers.wandb.wandb_utils import WandbLogger
+from kaopao_package.utils.plots import plot_images, plot_results
+from kaopao_package.utils.torch_utils import de_parallel
 
 LOGGERS = ('csv', 'tb', 'wandb')  # text-file, TensorBoard, Weights & Biases
 

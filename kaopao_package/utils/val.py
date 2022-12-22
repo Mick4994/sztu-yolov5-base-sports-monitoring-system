@@ -10,12 +10,12 @@ sys.path.append(FILE.parents[0].as_posix())  # add kapao/ to path
 import numpy as np
 import torch
 from tqdm import tqdm
-from models.experimental import attempt_load
-from utils.datasets import create_dataloader
-from utils.augmentations import letterbox
-from utils.general import check_dataset, check_file, check_img_size, \
+from kaopao_package.models.experimental import attempt_load
+from kaopao_package.utils.datasets import create_dataloader
+from kaopao_package.utils.augmentations import letterbox
+from kaopao_package.utils.general import check_dataset, check_file, check_img_size, \
     non_max_suppression_kp, scale_coords, set_logging, colorstr
-from utils.torch_utils import select_device, time_sync
+from kaopao_package.utils.torch_utils import select_device, time_sync
 import tempfile
 import cv2
 import pickle

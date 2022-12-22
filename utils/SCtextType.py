@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont
 
-def cv2AddChineseText(img, text, position, textColor=(0, 255, 0), textSize=30):
+def cv2AddChineseText(img, text, position, textColor=(0, 255, 0), textSize=30) -> cv2.Mat:
     if (isinstance(img, np.ndarray)):  # 判断是否OpenCV图片类型
         img = Image.fromarray(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
     # 创建一个可以在给定图像上绘图的对象

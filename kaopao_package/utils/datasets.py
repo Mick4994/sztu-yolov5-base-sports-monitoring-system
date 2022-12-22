@@ -256,6 +256,7 @@ class LoadWebcam:  # for inference
         self.pipe = pipe
         self.cap = cv2.VideoCapture(self.pipe)  # video capture object
         self.cap.set(cv2.CAP_PROP_BUFFERSIZE, 3)  # set buffer size
+        self.stop = False
 
     def __iter__(self):
         self.count = -1
@@ -270,19 +271,24 @@ class LoadWebcam:  # for inference
 
         # Read frame
         ret_val, img0 = self.cap.read()
-        img0 = cv2.flip(img0, 1)  # flip left-right
+        # img0 = cv2.flip(img0, 1)  # flip left-right
 
         # Print
-        assert ret_val, f'Camera Error {self.pipe}'
+        self.stop = False if ret_val else True
+        # self.logger.info(f'is_stop:{self.stop}')
+        # assert ret_val, f'Camera Error {self.pipe}'
         img_path = 'webcam.jpg'
         # print(f'webcam {self.count}: ', end='')
 
         # Padded resize
-        img = letterbox(img0, self.img_size, stride=self.stride)[0]
+        try:
+            img = letterbox(img0, self.img_size, stride=self.stride)[0]
 
-        # Convert
-        img = img.transpose((2, 0, 1))[::-1]  # HWC to CHW, BGR to RGB
-        img = np.ascontiguousarray(img)
+            # Convert
+            img = img.transpose((2, 0, 1))[::-1]  # HWC to CHW, BGR to RGB
+            img = np.ascontiguousarray(img)
+        except:
+            img = None
 
         return img_path, img, img0, None
 

@@ -27,8 +27,8 @@ class Visualization:
 
         line_zone = np.full((self.down_bound - self.up_bound ,len(frame[0]), 3), 50, dtype = np.uint8)
 
-        frame[self.up_bound:self.down_bound,:] += line_zone
         if not is_jiaozun:
+            frame[self.up_bound:self.down_bound,:] += line_zone
             frame = cv2AddChineseText(frame, self.jiaozun_str, (20, self.up_bound - 100), (255, 255, 255), 40)
         if len(box)!= 0:
             cv2.rectangle(frame,(box[0],box[1]),(box[2],box[3]),(255,0,0),2) #画人物范围框

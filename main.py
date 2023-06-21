@@ -80,6 +80,7 @@ class Process:
             #更新数据
             self.data = visualization.data
 
+            cv2.namedWindow('frame', cv2.WINDOW_NORMAL)
             cv2.imshow('frame',frame)
             frame_gather = AppendFrame(frame=frame,frame_gather=frame_gather)
             if len(frame_gather) > 500:
